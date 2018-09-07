@@ -89,9 +89,9 @@ class Run():
 
         for item in data:
 
-            path=item.get('path')
-            host=item.get('host')
-            html_url=host+path
+            html_path=item.get('path')
+            html_host=item.get('host')
+            html_url=html_host+html_path
             img_info=get_img_info(url=html_url)
 
             path=img_info.get('path')
@@ -101,6 +101,10 @@ class Run():
             title=img_info.get('title')
 
             self.sql.insert_table_img(path=path,host=host,total=total,iaStr=iaStr,title=title,refer=html_url)
+            ##将数据插入table img中
+
+            self.sql.update_table_html_status(path=html_path)
+            ##根据html_path更新数据表html中status的值
 
             
             log=u'sleep 1 second!!!'
